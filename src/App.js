@@ -2,6 +2,7 @@ import './App.css';
 
 function App() {
     return (
+        // 테스트
         <div className="relative min-h-screen">
             <div className="max-w-7xl mx-auto px-6 py-12">
                 <header className="flex justify-between mb-4">
