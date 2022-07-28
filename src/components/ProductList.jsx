@@ -8,15 +8,28 @@ const ProductList = ({
 }) => {
     const handleAddProduct = (idx) => {
         const currentProduct = productItem[idx];
-        const newCartItems = [...cartListItem, { ...currentProduct, count: 1 }];
-        setCartListItems(newCartItems);
+        const checkedIndex = cartListItem.findIndex(
+            (item) => item.id === currentProduct.id
+        );
+        if (checkedIndex === -1) {
+            const newCartItems = [
+                ...cartListItem,
+                { ...currentProduct, count: 1 },
+            ];
+            setCartListItems(newCartItems);
+        } else {
+            const newCartItems = [...cartListItem];
+            newCartItems[checkedIndex].count += 1;
+            setCartListItems(newCartItems);
+        }
+
         toggleCart();
     };
     return productItem.map(({ id, imgSrc, name, price }, idx) => {
         return (
             <>
                 {/* 아래 하드코딩 되어있는 상품 목록들을 src/api/productData.json을 바탕으로 불러오도록 변경해주세요.  */}
-                <article id={id} onClick={() => handleAddProduct(idx)}>
+                <article id={id} onClick={() => handleAddProduct(idx)} key={id}>
                     <div className="rounded-lg overflow-hidden border-2 relative">
                         <img
                             src={imgSrc}

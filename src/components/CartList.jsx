@@ -1,9 +1,9 @@
 import React from 'react';
 
 const CartList = ({ cartListItem }) => {
-    return cartListItem.map(({ id, imgSrc, name, price, count }, idx) => {
+    return cartListItem.map(({ id, imgSrc, name, price, count }) => {
         return (
-            <li className="flex py-6" key={idx}>
+            <li className="flex py-6" key={id}>
                 <div className="h-24 w-24 overflow-hidden rounded-md border border-gray-200">
                     <img
                         src={imgSrc}
