@@ -5,6 +5,18 @@ import CartList from './components/CartList';
 import ProductList from './components/ProductList';
 
 function App() {
+    const localCartState = localStorage.getItem('cartState');
+    const initialCartItem = localCartState
+        ? JSON.parse(localStorage.getItem('cartState'))
+        : [];
+
+    const [isCartOpen, setIsCartOpen] = useState(false);
+    const [productItem, setProductItems] = useState([]);
+    const [cartListItem, setCartListItems] = useState(initialCartItem);
+
+    const toggleCart = () => {
+        setIsCartOpen((prev) => !prev);
+    };
     useEffect(() => {
         const fetchProductData = async () => {
             const result = await getProductData();
@@ -13,11 +25,9 @@ function App() {
         };
         fetchProductData();
     }, []);
-    const [isCartOpen, setIsCartOpen] = useState(false);
-    const [productItem, setProductItems] = useState([]);
-    const [cartListItem, setCartListItems] = useState([]);
-    const toggleCart = () => {
-        setIsCartOpen((prev) => !prev);
+
+    const saveToLocalStorage = () => {
+        localStorage.setItem('cartState', JSON.stringify(cartListItem));
     };
     return (
         // 테스트
@@ -122,6 +132,7 @@ function App() {
                             <p
                                 id="payment-btn"
                                 className="flex items-center justify-center rounded-md border border-transparent bg-sky-400 px-6 py-3 mt-6 font-medium text-white shadow-sm hover:bg-sky-500"
+                                onClick={saveToLocalStorage}
                             >
                                 결제하기
                             </p>
