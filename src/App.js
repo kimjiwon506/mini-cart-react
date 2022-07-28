@@ -98,7 +98,10 @@ function App() {
                             {/* 아래 하드코딩 되어있는 장바구니 목록들을 유저 상호작용에 맞게 렌더링 되도록 변경해주세요.  */}
                             <div id="cart-list">
                                 <ul className="divide-y divide-gray-200">
-                                    <CartList cartListItem={cartListItem} />
+                                    <CartList
+                                        setCartListItems={setCartListItems}
+                                        cartListItem={cartListItem}
+                                    />
                                 </ul>
                             </div>
                         </div>

@@ -1,9 +1,14 @@
 import React from 'react';
 
-const CartList = ({ cartListItem }) => {
-    return cartListItem.map(({ id, imgSrc, name, price, count }) => {
+const CartList = ({ cartListItem, setCartListItems }) => {
+    const removeCartItem = (idx) => {
+        const newCartItems = [...cartListItem];
+        newCartItems.splice(idx, 1);
+        setCartListItems(newCartItems);
+    };
+    return cartListItem.map(({ id, imgSrc, name, price, count }, idx) => {
         return (
-            <li className="flex py-6" key={id}>
+            <li className="flex py-6" id={id} key={idx}>
                 <div className="h-24 w-24 overflow-hidden rounded-md border border-gray-200">
                     <img
                         src={imgSrc}
@@ -28,7 +33,14 @@ const CartList = ({ cartListItem }) => {
                             type="button"
                             className="font-medium text-sky-400 hover:text-sky-500"
                         >
-                            <p className="remove-btn">삭제하기</p>
+                            <p
+                                className="remove-btn"
+                                onClick={() => {
+                                    removeCartItem(idx);
+                                }}
+                            >
+                                삭제하기
+                            </p>
                         </button>
                     </div>
                 </div>
