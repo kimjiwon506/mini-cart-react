@@ -1,6 +1,33 @@
 import React from 'react';
 
+const MAX_COUNT = 10;
+const MIN_COUNT = 1;
+
 const CartList = ({ cartListItem, setCartListItems }) => {
+    const increaseCartItem = (idx) => {
+        // const newCartItems = [...cartListItem];
+        // newCartItems[idx].count += 1;
+        // setCartListItems(newCartItems);
+        if (cartListItem[idx].count < MAX_COUNT) {
+            const newCartItems = [...cartListItem];
+            newCartItems[idx].count += 1;
+            setCartListItems(newCartItems);
+        } else {
+            alert('장바구니 최대수량은 10개 입니다.');
+        }
+    };
+    const decreaseCartItem = (idx) => {
+        // const newCartItems = [...cartListItem];
+        // newCartItems[idx].count -= 1;
+        // setCartListItems(newCartItems);
+        if (cartListItem[idx].count > MIN_COUNT) {
+            const newCartItems = [...cartListItem];
+            newCartItems[idx].count -= 1;
+            setCartListItems(newCartItems);
+        } else {
+            alert('최소수량은 1개입니다.');
+        }
+    };
     const removeCartItem = (idx) => {
         const newCartItems = [...cartListItem];
         newCartItems.splice(idx, 1);
@@ -27,7 +54,14 @@ const CartList = ({ cartListItem, setCartListItems }) => {
                         <div className="flex text-gray-500">
                             <button className="decrease-btn">-</button>
                             <div className="mx-2 font-bold">{count}</div>
-                            <button className="increase-btn">+</button>
+                            <button
+                                className="increase-btn"
+                                onClick={() => {
+                                    increaseCartItem(idx);
+                                }}
+                            >
+                                +
+                            </button>
                         </div>
                         <button
                             type="button"
