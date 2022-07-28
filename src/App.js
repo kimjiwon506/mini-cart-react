@@ -15,6 +15,7 @@ function App() {
     }, []);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [productItem, setProductItems] = useState([]);
+    const [cartListItem, setCartListItems] = useState([]);
     const toggleCart = () => {
         setIsCartOpen((prev) => !prev);
     };
@@ -47,6 +48,8 @@ function App() {
                         <ProductList
                             productItem={productItem}
                             toggleCart={toggleCart}
+                            setCartListItems={setCartListItems}
+                            cartListItem={cartListItem}
                         />
                     </div>
                 </section>
@@ -60,9 +63,73 @@ function App() {
                 ></div>
             )}
             {/* CartList */}
-            <CartList />
+            <aside className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                <section
+                    className={`pointer-events-auto w-screen max-w-md transition ease-in-out duration-500 translate-x-${
+                        isCartOpen ? 0 : 'full'
+                    }`}
+                    id="shopping-cart"
+                >
+                    <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+                        <div className="flex-1 overflow-y-auto p-6">
+                            <div className="flex items-start justify-between">
+                                <h2 className="text-xl font-bold">장바구니</h2>
+                                <div className="ml-3 flex h-7 items-center">
+                                    <button
+                                        type="button"
+                                        className="-m-2 p-2 text-gray-400 hover:text-gray-500"
+                                    >
+                                        <svg
+                                            id="close-cart-btn"
+                                            className="h-6 w-6"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            onClick={toggleCart}
+                                        >
+                                            <path
+                                                strokeWidth="2"
+                                                d="M6 18L18 6M6 6l12 12"
+                                            ></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            {/* 아래 하드코딩 되어있는 장바구니 목록들을 유저 상호작용에 맞게 렌더링 되도록 변경해주세요.  */}
+                            <div id="cart-list">
+                                <ul className="divide-y divide-gray-200">
+                                    <CartList cartListItem={cartListItem} />
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="border-t border-gray-200 p-6">
+                            <div className="flex justify-between font-medium">
+                                <p>결제금액</p>
+                                <p className="font-bold" id="total-count"></p>
+                            </div>
+                            <p
+                                id="payment-btn"
+                                className="flex items-center justify-center rounded-md border border-transparent bg-sky-400 px-6 py-3 mt-6 font-medium text-white shadow-sm hover:bg-sky-500"
+                            >
+                                결제하기
+                            </p>
+                            <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                                <p>
+                                    또는{' '}
+                                    <button
+                                        type="button"
+                                        className="font-medium text-sky-400 hover:text-sky-500"
+                                    >
+                                        쇼핑 계속하기
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
             <footer className="text-center text-gray-500 text-xs pb-6">
-                ©2022 Hanameee Corp. All rights reserved.
+                ©2022.
             </footer>
         </div>
     );
